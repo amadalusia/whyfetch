@@ -7,7 +7,6 @@ import pathlib
 import shellingham as shelling
 import time
 import locale
-from typing import Optional
 
 uname = platform.uname()
 svmem = psutil.virtual_memory()
@@ -20,7 +19,6 @@ class Prop:
         self.length = len(self.content)
         pass
 
-# OOP brainrot
 class Kernel:
     def __init__(self) -> None:
         self.system: str = uname.system
