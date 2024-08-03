@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "whyfetch"
+version = "0.1.0"
+description = "if you dont want to use anything else then whyfetch?"
+authors = ["Artur Manuel <balkenix@outlook.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+psutil = "^6.0.0"
+shellingham = "^1.5.4"
+
+[tool.poetry.scripts]
+whyfetch = "whyfetch:__main__"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
