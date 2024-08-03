@@ -1,10 +1,5 @@
 import whyfetch.system_properties as w
 
-colours = {
-    "red": "\x1b[1;31m",
-    "blue": "\x1b[1;34m",
-    "white": "\x1b[1;39m",
-}
 
 def separator_from_longest_prop(properties: list[w.Prop]):
     j: int = 0
@@ -17,6 +12,12 @@ def separator_from_longest_prop(properties: list[w.Prop]):
             continue
 
     return "━"*j
+
+colours = {
+    "red": "\x1b[1;31m",
+    "blue": "\x1b[1;34m",
+    "white": "\x1b[1;39m",
+}
 
 def __main__():
     kernel: w.Kernel = w.Kernel()
@@ -31,14 +32,10 @@ def __main__():
 
     print(f'{colours["white"]}━━━━━━━━━━━━━━━{separator_from_longest_prop(properties)}')
     print(f'   {colours["red"]}_.----._{colours["white"]}    {username.prop.content}@{kernel.node}')
-    print(f' {colours["red"]}.\'        \'.{colours["white"]} {kernel.prop.content}')
-    print(f'{colours["red"]}/{colours["white"]}._   _.--._ {colours["red"]}}\\ {os.prop.content}')
+    print(f' {colours["red"]}.\'        \'.{colours["white"]}  {kernel.prop.content}')
+    print(f'{colours["red"]}/{colours["white"]}._   _.--._ {colours["red"]}\\{colours["white"]} {os.prop.content}')
     print(f'|_ \'-\' _.._ `| {shell.prop.content}')
-    print(f'\\ `---\'    `-/ {ram.prop.content}')
-    print(f' \'._      _.\'  {uptime.prop.content}')
-    print(f'    \'----\'     {locale.prop.content}')
+    print(f'{colours["blue"]}\\{colours["white"]} `---\'    `-{colours["blue"]}/{colours["white"]} {ram.prop.content}')
+    print(f' {colours["blue"]}\'._      _.\'{colours["white"]}  {uptime.prop.content}')
+    print(f'    {colours["blue"]}\'----\'{colours["white"]}     {locale.prop.content}')
     print(f'━━━━━━━━━━━━━━━{separator_from_longest_prop(properties)}')
-
-
-
-
