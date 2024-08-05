@@ -12,6 +12,7 @@ import os
 ures: pl.uname_result = pl.uname()
 sys: str = pl.system()
 
+
 class Data:
     def __init__(self) -> None:
         self.username: str = gp.getuser()
@@ -23,13 +24,13 @@ class Data:
         self.uptime: str = self.get_uptime()
         self.locale: str = lc.setlocale(lc.LC_CTYPE)
         pass
-    
+
     def get_os(self) -> str:
         if "Linux" == ures.system:
             linux_res: dict[str, str] = pl.freedesktop_os_release()
-            return linux_res['PRETTY_NAME']
+            return linux_res["PRETTY_NAME"]
 
-        if [ "FreeBSD", "OpenBSD", "NetBSD" ] not in [ ures.system ]:
+        if ["FreeBSD", "OpenBSD", "NetBSD"] not in [ures.system]:
             return ures.system
 
         if sys == "Darwin":
@@ -44,7 +45,7 @@ class Data:
             win_release: str = win_res[0]
             win_ver: str = win_res[1]
             return f"{win_release} {win_edition} {win_ver}"
-        
+
         raise ValueError("Unknown operating system. %r" % sys)
 
     def get_shell(self) -> str:
@@ -53,11 +54,11 @@ class Data:
             shell: str = shell_info[0]
         except sh.ShellDetectionFailure:
             shell: str = provide_default_shell()
-    
+
         return shell
 
     def get_ram(self) -> str:
-        to_gb: Callable[[int], float] = lambda s: s / (1024 ** 3)
+        to_gb: Callable[[int], float] = lambda s: s / (1024**3)
         vm: NamedTuple = ps.virtual_memory()
         total: float = to_gb(vm.total)
         used: float = to_gb(vm.used)
@@ -68,9 +69,10 @@ class Data:
         current_uptime: tm.struct_time = tm.gmtime(tm.time() - ps.boot_time())
         return tm.strftime("%H hours, %M minutes, %S seconds", current_uptime)
 
+
 def provide_default_shell() -> str:
-    if os.name == 'nt':
-        return os.environ['COMSPEC']
-    elif os.name == 'posix':
-        return os.environ['SHELL']
-    raise NotImplementedError(f'OS {os.name!r} support not available')
+    if os.name == "nt":
+        return os.environ["COMSPEC"]
+    elif os.name == "posix":
+        return os.environ["SHELL"]
+    raise NotImplementedError(f"OS {os.name!r} support not available")
