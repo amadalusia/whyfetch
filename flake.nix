@@ -29,20 +29,13 @@
         #
         # Use this shell for developing your app.
         devShells.default = pkgs.mkShell {
-          inputsFrom = [ self.packages.${system}.whyfetch ];
+          inputsFrom = [
+	    self.packages.${system}.whyfetch
+	    pkgs.pyright
+	    pkgs.black
+	    pkgs.isort
+	  ];
         };
-
-	apps = {
-	  whyfetch = {
-	    program = "${self.packages.${system}.whyfetch}/bin/whyfetch";
-	    type = "app";
-	  };
-	  default = {
-	    program = "${self.packages.${system}.default}/bin/whyfetch";
-	    type = "app";
-	  };
-	};
-	
 
         # Shell for poetry.
         #

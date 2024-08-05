@@ -1,41 +1,44 @@
-import whyfetch.system_properties as w
+from whyfetch.data import Data
 
-
-def separator_from_longest_prop(properties: list[w.Prop]):
+def separator_from_longest_prop(props: list[str]):
     j: int = 0
     
-    for i in properties:
-        if i.length > j:
-            j = i.length
+    for i in props:
+        if len(i) > j:
+            j = len(i)
             continue
         else:
             continue
 
     return "━"*j
 
-colours = {
-    "red": "\x1b[1;31m",
-    "blue": "\x1b[1;34m",
-    "white": "\x1b[1;39m",
-}
+class Colours:
+    red: str = "\x1b[1;31m"
+    blue: str = "\x1b[1;34m"
+    white: str = "\x1b[1;39m"
+    magenta: str = "\x1b[1;35m"
 
 def __main__():
-    kernel: w.Kernel = w.Kernel()
-    ram: w.Ram = w.Ram()
-    username: w.Username = w.Username()
-    os: w.Os = w.Os()
-    shell: w.Shell = w.Shell()
-    uptime: w.Uptime = w.Uptime()
-    locale: w.Locale = w.Locale()
+    d: Data = Data()
+    
+    props: list[str] = [
+        f"{d.username}@{d.hostname}",
+        f"kernel: {d.kernel}",
+        f"os: {d.os}",
+        f"shell: {d.shell}",
+        f"ram: {d.ram}",
+        f"up: {d.uptime}",
+        f"locale: {d.locale}"
+    ]
 
-    properties: list[w.Prop] = [ kernel.prop, ram.prop, username.prop, os.prop, uptime.prop, locale.prop ]
+    separator: str = separator_from_longest_prop(props)
 
-    print(f'{colours["white"]}━━━━━━━━━━━━━━━{separator_from_longest_prop(properties)}')
-    print(f'   {colours["red"]}_.----._{colours["white"]}    {username.prop.content}@{kernel.node}')
-    print(f' {colours["red"]}.\'        \'.{colours["white"]}  {kernel.prop.content}')
-    print(f'{colours["red"]}/{colours["white"]}._   _.--._ {colours["red"]}\\{colours["white"]} {os.prop.content}')
-    print(f'|_ \'-\' _.._ `| {shell.prop.content}')
-    print(f'{colours["blue"]}\\{colours["white"]} `---\'    `-{colours["blue"]}/{colours["white"]} {ram.prop.content}')
-    print(f' {colours["blue"]}\'._      _.\'{colours["white"]}  {uptime.prop.content}')
-    print(f'    {colours["blue"]}\'----\'{colours["white"]}     {locale.prop.content}')
-    print(f'━━━━━━━━━━━━━━━{separator_from_longest_prop(properties)}')
+    print(f'{Colours.white}━━━━━━━━━━━━━━━{separator}')
+    print(f'   {Colours.red}_.----._{Colours.white}    {Colours.magenta}{d.username}{Colours.white}@{Colours.magenta}{d.hostname}')
+    print(f' {Colours.red}.\'        \'.{Colours.white}  {Colours.magenta}kernel:{Colours.white} {d.kernel}')
+    print(f'{Colours.red}/{Colours.white}._   _.--._ {Colours.red}\\{Colours.white} {Colours.magenta}os:{Colours.white} {d.os}')
+    print(f'|_ \'-\' _.._ `| {Colours.magenta}shell:{Colours.white} {d.shell}')
+    print(f'{Colours.blue}\\{Colours.white} `---\'    `-{Colours.blue}/{Colours.white} {Colours.magenta}ram:{Colours.white} {d.ram}')
+    print(f' {Colours.blue}\'._      _.\'{Colours.white}  {Colours.magenta}up:{Colours.white} {d.uptime}')
+    print(f'    {Colours.blue}\'----\'{Colours.white}     {Colours.magenta}locale:{Colours.white} {d.locale}')
+    print(f'━━━━━━━━━━━━━━━{separator}')
