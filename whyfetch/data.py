@@ -23,6 +23,7 @@ class Data:
         self.ram: str = self.get_ram()
         self.uptime: str = self.get_uptime()
         self.locale: str = lc.setlocale(lc.LC_CTYPE)
+        self.display_server: str = self.get_display_server()
         pass
 
     def get_os(self) -> str:
@@ -68,6 +69,15 @@ class Data:
     def get_uptime(self) -> str:
         current_uptime: tm.struct_time = tm.gmtime(tm.time() - ps.boot_time())
         return tm.strftime("%H hours, %M minutes, %S seconds", current_uptime)
+
+    def get_display_server(self) -> str:
+        if "Linux" == ures.system:
+            return os.environ["XDG_SESSION_TYPE"]
+        elif "Darwin" == ures.system:
+            return "XQuartz"
+        elif "Windows" == ures.system:
+            return "Desktop Window Manager (Windows)"
+        raise NotImplementedError(f"OS {os.name!r} support not available")
 
 
 def provide_default_shell() -> str:

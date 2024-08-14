@@ -32,6 +32,7 @@ def __main__():
         f"ram:    {d.ram}",
         f"up:     {d.uptime}",
         f"locale: {d.locale}",
+        f"server: {d.display_server}",
     ]
 
     separator: str = separator_from_longest_prop(props)
@@ -56,4 +57,5 @@ def __main__():
     print(
         f"    {Colours.blue}'----'{Colours.white}     {Colours.magenta}locale:{Colours.white} {d.locale}"
     )
+    print(f"               {Colours.magenta}server:{Colours.white} {d.display_server}")
     print(f"━━━━━━━━━━━━━━━{separator}")

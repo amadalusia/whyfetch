@@ -31,6 +31,8 @@
         devShells.default = pkgs.mkShell {
           inputsFrom = [
 	    self.packages.${system}.whyfetch
+	  ];
+	  nativeBuildInputs = [
 	    pkgs.pyright
 	    pkgs.black
 	    pkgs.isort
